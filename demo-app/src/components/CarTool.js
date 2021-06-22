@@ -1,33 +1,25 @@
+import { useState } from "react";
+
+import { CarTable } from "./CarTable";
+
 export const CarTool = (props) => {
+  const [cars, setCars] = useState([...props.cars]);
+
+  const addCar = () => {
+    // code which used setCars to add a car...
+  };
+
+  const deleteCar = (carId) => {
+    // code which calls setCars and filter to delete a car....
+    setCars(cars.filter((c) => c.id !== carId));
+  };
+
   return (
     <>
       <header>
         <h1>Car Tool</h1>
       </header>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Year</th>
-            <th>Car</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.cars.map((car) => (
-            <tr key={car.id}>
-              <td>{car.id}</td>
-              <td>{car.make}</td>
-              <td>{car.model}</td>
-              <td>{car.year}</td>
-              <td>{car.color}</td>
-              <td>{car.price}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <CarTable cars={cars} onDeleteCar={deleteCar} />
     </>
   );
 };

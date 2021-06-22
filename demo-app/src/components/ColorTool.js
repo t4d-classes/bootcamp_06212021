@@ -1,44 +1,22 @@
 import { useState } from "react";
 
+import { ColorForm } from "./ColorForm";
+
 export const ColorTool = ({ colors: initialColors }) => {
-  // setColorForm - update the state date, and it will trigger the re-render
 
   const [colors, setColors] = useState([...initialColors]);
 
-  const [
-    colorForm /* state data */,
-    setColorForm /* function to update the state data */,
-  ] = useState({
-    name: "",
-    hexcode: "",
-  });
-
-  const change = (e) => {
-    setColorForm({
-      ...colorForm,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const addColor = () => {
+  const addColor = (newColor) => {
     setColors([
       // array spread operator
       ...colors,
       {
         // object spread operator
-        ...colorForm,
+        ...newColor,
         id: Math.max(...colors.map((c) => c.id)) + 1,
       },
     ]);
-
-    setColorForm({
-      name: "",
-      hexcode: "",
-    });
   };
-
-  console.log(colorForm);
-  console.log("re-rendering");
 
   return (
     <>
@@ -50,31 +28,7 @@ export const ColorTool = ({ colors: initialColors }) => {
           <li key={c.id}>{c.name}</li>
         ))}
       </ul>
-      <form>
-        <div>
-          <label htmlFor="color-name-input">Color Name</label>
-          <input
-            type="text"
-            id="color-name-input"
-            value={colorForm.name}
-            onChange={change}
-            name="name"
-          />
-        </div>
-        <div>
-          <label htmlFor="color-hexcode-input">Color Hexcode</label>
-          <input
-            type="text"
-            id="color-hexcode-input"
-            value={colorForm.hexcode}
-            onChange={change}
-            name="hexcode"
-          />
-        </div>
-        <button type="button" onClick={addColor}>
-          Add Color
-        </button>
-      </form>
+      <ColorForm buttonText="Add Color" onSubmitForm={addColor} />
     </>
   );
 };

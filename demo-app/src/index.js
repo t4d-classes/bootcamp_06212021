@@ -4,23 +4,6 @@ import { render } from "react-dom";
 import { ColorTool } from "./components/ColorTool";
 import { CarTool } from "./components/CarTool";
 
-// delete item from an array
-const nums = [1, 2, 3, 4, 5];
-
-const nums2 = nums.filter((x) => x !== 2);
-
-console.log(nums);
-console.log(nums2);
-
-
-// functions are objects, and assigning object references and invoking functions
-const t = () => { console.log('hi!') };
-
-const y = t;
-
-t();
-y();
-
 const colorList = [
   { id: 1, name: "green" },
   { id: 2, name: "blue" },
