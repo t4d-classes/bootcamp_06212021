@@ -1,32 +1,39 @@
 import { useState } from "react";
 
-export const ColorTool = ({ colors }) => {
+export const ColorTool = ({ colors: initialColors }) => {
   // setColorForm - update the state date, and it will trigger the re-render
+
+  const [colors, setColors] = useState([...initialColors]);
 
   const [
     colorForm /* state data */,
     setColorForm /* function to update the state data */,
-  ] = useState(
-    {
-      colorName: "",
-      colorHexcode: "",
-    } /* initial state data */
-  );
+  ] = useState({
+    name: "",
+    hexcode: "",
+  });
 
   const change = (e) => {
-    setColorForm(/* new color form object */{
-
-      // object spread operator
-      // copying the properties from the current
-      // color form object, to a new color form
-      // object
+    setColorForm({
       ...colorForm,
-    //   colorName: colorForm.colorName,
-    //   colorHexcode: colorForm.colorHexcode
-
-      // computed property
       [e.target.name]: e.target.value,
-      // colorHexcode: 'F'
+    });
+  };
+
+  const addColor = () => {
+    setColors([
+      // array spread operator
+      ...colors,
+      {
+        // object spread operator
+        ...colorForm,
+        id: Math.max(...colors.map((c) => c.id)) + 1,
+      },
+    ]);
+
+    setColorForm({
+      name: "",
+      hexcode: "",
     });
   };
 
@@ -49,9 +56,9 @@ export const ColorTool = ({ colors }) => {
           <input
             type="text"
             id="color-name-input"
-            value={colorForm.colorName}
+            value={colorForm.name}
             onChange={change}
-            name="colorName"
+            name="name"
           />
         </div>
         <div>
@@ -59,11 +66,14 @@ export const ColorTool = ({ colors }) => {
           <input
             type="text"
             id="color-hexcode-input"
-            value={colorForm.colorHexcode}
+            value={colorForm.hexcode}
             onChange={change}
-            name="colorHexcode"
+            name="hexcode"
           />
         </div>
+        <button type="button" onClick={addColor}>
+          Add Color
+        </button>
       </form>
     </>
   );
