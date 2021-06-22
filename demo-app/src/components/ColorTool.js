@@ -14,9 +14,19 @@ export const ColorTool = ({ colors }) => {
   );
 
   const change = (e) => {
-    setColorForm({
+    setColorForm(/* new color form object */{
+
+      // object spread operator
+      // copying the properties from the current
+      // color form object, to a new color form
+      // object
       ...colorForm,
+    //   colorName: colorForm.colorName,
+    //   colorHexcode: colorForm.colorHexcode
+
+      // computed property
       [e.target.name]: e.target.value,
+      // colorHexcode: 'F'
     });
   };
 
