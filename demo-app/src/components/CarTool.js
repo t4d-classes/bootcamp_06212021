@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { ToolHeader } from "./ToolHeader";
 import { CarTable } from "./CarTable";
 
 export const CarTool = ({cars: initialCars }) => {
@@ -19,20 +20,29 @@ export const CarTool = ({cars: initialCars }) => {
   });
 
   const change = e => {
-    setCarForm({
-      ...carForm,
-      [e.target.name]: e.target.value,
-    });
+    // setCarForm({
+    //   ...carForm,
+    //   [e.target.name]: e.target.value,
+    // });
+
+    carForm[e.target.name] = e.target.value;
+    setCarForm(carForm);
   };
 
   const addCar = () => {
-    setCars([
-      ...cars,
-      {
-        ...carForm,
-        id: Math.max(...cars.map(c => c.id), 0) + 1,
-      }
-    ])
+    // setCars([
+    //   ...cars,
+    //   {
+    //     ...carForm,
+    //     id: Math.max(...cars.map(c => c.id), 0) + 1,
+    //   }
+    // ])
+
+    cars.push({
+      ...carForm,
+      id: Math.max(...cars.map(c => c.id), 0) + 1,
+    });
+    setCars(cars);
   };
 
   const deleteCar = (carId) => {
@@ -41,9 +51,7 @@ export const CarTool = ({cars: initialCars }) => {
 
   return (
     <>
-      <header>
-        <h1>Car Tool</h1>
-      </header>
+      <ToolHeader headerText="Car Tool" />
       <CarTable cars={cars} editCarId={editCarId}
         onEditCar={setEditCarId} onDeleteCar={deleteCar} />
       <form>

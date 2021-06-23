@@ -39,5 +39,41 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+
+      "use strict";
+
+      // let t = Object.freeze({
+      //   name: 'test',
+      //   age: 34,
+      // });
+
+      // t = {
+      //   ...t,
+      //   name: 'new name',
+      // };
+
+      // console.log(t);
+
+      const stuff = [
+        { id: 1, name: 'a' },
+        { id: 2, name: 'b' },
+        { id: 3, name: 'c' },
+      ];
+
+      const new2 = { id: 2, name: 'd'};
+
+      console.log(stuff);
+
+      const newStuff = [ ...stuff ];
+      const new2Index = newStuff.findIndex(s => s.id === new2.id);
+      newStuff[new2Index] = new2;
+
+      console.log(stuff);
+      console.log(newStuff);
+      // setStuff(newStuff)
+
+
+    </script>
   </body>
 </html>
