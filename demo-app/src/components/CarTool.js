@@ -5,6 +5,8 @@ import { CarTable } from "./CarTable";
 export const CarTool = ({cars: initialCars }) => {
   const [cars, setCars] = useState([...initialCars]);
 
+  const [editCarId, setEditCarId] = useState(-1);
+
   const [
     carForm,
     setCarForm,
@@ -42,7 +44,8 @@ export const CarTool = ({cars: initialCars }) => {
       <header>
         <h1>Car Tool</h1>
       </header>
-      <CarTable cars={cars} onDeleteCar={deleteCar} />
+      <CarTable cars={cars} editCarId={editCarId}
+        onEditCar={setEditCarId} onDeleteCar={deleteCar} />
       <form>
         <div>
           <label htmlFor="make-input">Make</label>

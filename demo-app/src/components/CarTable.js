@@ -1,12 +1,17 @@
 import { CarViewRow } from "./CarViewRow";
+import { CarEditRow } from "./CarEditRow";
 
-export const CarTable = ({ cars, onDeleteCar: deleteCar }) => {
+export const CarTable = ({
+  cars, editCarId,
+  onEditCar: editCar,
+  onDeleteCar: deleteCar,
+}) => {
   return (
     <table>
       <thead>
         <tr>
           <th>Id</th>
-          <th>Make</th>
+          <th>{editCarId > 0 ? <label htmlFor="make-input">Make</label> : 'Make'}</th>
           <th>Model</th>
           <th>Year</th>
           <th>Car</th>
@@ -16,8 +21,9 @@ export const CarTable = ({ cars, onDeleteCar: deleteCar }) => {
       </thead>
       <tbody>
         {cars.map((car) => (
-          <CarViewRow car={car} key={car.id}
-            onDeleteCar={deleteCar} />
+          car.id === editCarId
+            ? <CarEditRow car={car} key={car.id} />
+            : <CarViewRow car={car} key={car.id} onEditCar={editCar} onDeleteCar={deleteCar} />
         ))}
       </tbody>
     </table>
