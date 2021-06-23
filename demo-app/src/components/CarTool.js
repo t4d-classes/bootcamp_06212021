@@ -28,7 +28,7 @@ export const CarTool = ({cars: initialCars }) => {
       ...cars,
       {
         ...carForm,
-        id: Math.max(...cars.map(c => c.id)) + 1,
+        id: Math.max(...cars.map(c => c.id), 0) + 1,
       }
     ])
   };
