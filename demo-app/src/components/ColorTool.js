@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { ToolHeader } from './ToolHeader';
+import { ColorList } from './ColorList';
 import { ColorForm } from "./ColorForm";
 
 export const ColorTool = ({ colors: initialColors }) => {
@@ -8,10 +10,8 @@ export const ColorTool = ({ colors: initialColors }) => {
 
   const addColor = (newColor) => {
     setColors([
-      // array spread operator
       ...colors,
       {
-        // object spread operator
         ...newColor,
         id: Math.max(...colors.map((c) => c.id)) + 1,
       },
@@ -20,14 +20,8 @@ export const ColorTool = ({ colors: initialColors }) => {
 
   return (
     <>
-      <header>
-        <h1>Color Tool</h1>
-      </header>
-      <ul>
-        {colors.map((c) => (
-          <li key={c.id}>{c.name}</li>
-        ))}
-      </ul>
+      <ToolHeader headerText="Color Tool" />
+      <ColorList colors={colors} />
       <ColorForm buttonText="Add Color" onSubmitForm={addColor} />
     </>
   );
