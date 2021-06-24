@@ -1,4 +1,4 @@
-import { useList } from '../hooks/useList';
+import { useColorToolStore } from '../hooks/useColorToolStore';
 
 import { ToolHeader } from './ToolHeader';
 import { ColorList } from './ColorList';
@@ -6,7 +6,7 @@ import { ColorForm } from "./ColorForm";
 
 export const ColorTool = ({ colors: initialColors }) => {
 
-  const [colors, appendColor] = useList([...initialColors]);
+  const { colors, appendColor } = useColorToolStore(initialColors);
 
   return (
     <>
