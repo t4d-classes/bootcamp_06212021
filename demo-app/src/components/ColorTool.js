@@ -1,12 +1,12 @@
-import { useColorToolStore } from '../hooks/useColorToolStore';
+import { useColorToolStoreContext } from '../contexts/colorToolStoreContext';
 
 import { ToolHeader } from './ToolHeader';
 import { ColorList } from './ColorList';
 import { ColorForm } from "./ColorForm";
 
-export const ColorTool = ({ colors: initialColors }) => {
+export const ColorTool = () => {
 
-  const { colors, appendColor, removeColor } = useColorToolStore(initialColors);
+  const { colors, appendColor, removeColor } = useColorToolStoreContext();
 
   return (
     <>
