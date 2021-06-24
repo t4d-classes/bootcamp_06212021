@@ -2,8 +2,9 @@
 import { render } from "react-dom";
 
 import { ColorToolStoreProvider } from './contexts/colorToolStoreContext';
-import { ColorToolContainer } from "./containers/ColorTooContainer";
-import { CarTool } from "./components/CarTool";
+import { ColorToolContainer } from "./containers/ColorToolContainer";
+import { CarToolStoreProvider } from './contexts/carToolStoreContext';
+import { CarToolContainer } from "./containers/CarToolContainer";
 
 const colorList = [
   { id: 1, name: "green" },
@@ -35,7 +36,9 @@ const elements = (
     <ColorToolStoreProvider initialColors={colorList}>
       <ColorToolContainer />
     </ColorToolStoreProvider>
-    <CarTool cars={carList} />
+    <CarToolStoreProvider initialCars={carList}>
+      <CarToolContainer />
+    </CarToolStoreProvider>
   </>
 );
 
