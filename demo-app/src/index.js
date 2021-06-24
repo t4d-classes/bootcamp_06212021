@@ -2,7 +2,7 @@
 import { render } from "react-dom";
 
 import { ColorToolStoreProvider } from './contexts/colorToolStoreContext';
-import { ColorTool } from "./components/ColorTool";
+import { ColorToolContainer } from "./containers/ColorTooContainer";
 import { CarTool } from "./components/CarTool";
 
 const colorList = [
@@ -33,7 +33,7 @@ const carList = [
 const elements = (
   <>
     <ColorToolStoreProvider initialColors={colorList}>
-      <ColorTool />
+      <ColorToolContainer />
     </ColorToolStoreProvider>
     <CarTool cars={carList} />
   </>
