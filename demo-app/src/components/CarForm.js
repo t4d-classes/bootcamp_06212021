@@ -48,7 +48,7 @@ export const CarForm = props => {
           data-type="number"
           id="year-input"
           name="year"
-          value={toString(carForm.year)}
+          value={carForm.year}
           onChange={change}
         />
       </div>
@@ -69,7 +69,7 @@ export const CarForm = props => {
           data-type="number"
           id="price-input"
           name="price"
-          value={toString(carForm.price)}
+          value={carForm.price}
           onChange={change}
         />
       </div>
