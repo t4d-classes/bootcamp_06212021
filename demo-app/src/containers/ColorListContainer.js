@@ -2,17 +2,15 @@ import { useColorToolStoreContext } from '../contexts/colorToolStoreContext';
 
 import { ToolHeader } from '../components/ToolHeader';
 import { ColorList } from '../components/ColorList';
-import { ColorForm } from "../components/ColorForm";
 
-export const ColorToolContainer = () => {
+export const ColorListContainer = () => {
 
-  const { colors, appendColor, removeColor } = useColorToolStoreContext();
+  const { colors, removeColor } = useColorToolStoreContext();
 
   return (
     <>
-      <ToolHeader headerText="Color Tool" />
+      <ToolHeader headerText="Color List" />
       <ColorList colors={colors} onDeleteColor={removeColor} />
-      <ColorForm buttonText="Add Color" onSubmitForm={appendColor} />
     </>
   );
 };
