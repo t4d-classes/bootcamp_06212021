@@ -24,6 +24,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link href="reset.css" rel="stylesheet">
     <title>React App</title>
   </head>
   <body>
@@ -55,23 +56,95 @@
 
       // console.log(t);
 
-      const stuff = [
-        { id: 1, name: 'a' },
-        { id: 2, name: 'b' },
-        { id: 3, name: 'c' },
-      ];
+      // const stuff = [
+      //   { id: 1, name: 'a' },
+      //   { id: 2, name: 'b' },
+      //   { id: 3, name: 'c' },
+      // ];
 
-      const new2 = { id: 2, name: 'd'};
+      // const new2 = { id: 2, name: 'd'};
 
-      console.log(stuff);
+      // console.log(stuff);
 
-      const newStuff = [ ...stuff ];
-      const new2Index = newStuff.findIndex(s => s.id === new2.id);
-      newStuff[new2Index] = new2;
+      // const newStuff = [ ...stuff ];
+      // const new2Index = newStuff.findIndex(s => s.id === new2.id);
+      // newStuff[new2Index] = new2;
 
-      console.log(stuff);
-      console.log(newStuff);
-      // setStuff(newStuff)
+      // console.log(stuff);
+      // console.log(newStuff);
+      // // setStuff(newStuff)
+
+
+    </script>
+    <script>
+
+      "use strict";
+
+      // class Person {
+
+      //   constructor(firstName, lastName) {
+      //     this.firstName = firstName;
+      //     this.lastName = lastName;
+      //   }
+
+      //   getFullName() {
+      //     return this.firstName + " " + this.lastName;
+      //   }
+
+      // }
+
+      // function Person2(firstName, lastName) {
+      //   this.firstName = firstName;
+      //   this.lastName = lastName;
+      // }
+
+      // Person2.prototype.getFullName = function() {
+      //   return this.firstName + " " + this.lastName;
+      // }
+
+      // const a = new Person("Bob", "Smith");
+      // console.log(a.getFullName());
+
+      // const b = new Person2("Sally", "Jones");
+      // console.log(b.getFullName());
+
+      // console.dir(Person);
+      // console.dir(Person2);
+      // console.dir(a);
+      // console.dir(b);
+
+
+      // for keyword-style functions it's about how the function is called
+      function doIt() {
+        console.log(this);
+
+        // const that = this;
+
+        // function inner() {
+        //   console.log(that);
+        // }
+
+        // arrow function use lexical this
+        // it's about where the function is defined
+        const inner = () => {
+          console.log(this);
+        };
+
+        inner();
+      }
+
+      // doIt();
+      // window.doIt();
+
+      const o = {
+        id: 2, 
+        doIt: doIt,
+      };
+
+      o.doIt();
+
+      // console.log(o.doIt === window.doIt);
+
 
 
     </script>

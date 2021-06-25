@@ -1,0 +1,37 @@
+.info-text {
+  color: green;
+}
+
+
+li:nth-child(2n) {
+  color: blue;
+}
+
+
+input {
+  border: red solid 2px;
+}
+
+input:focus {
+  border: blue solid 2px;
+}
+
+div {
+  color: red;
+
+  > div {
+    color
+  }
+
+  > span {
+    
+  }
+}
+
+div > div {
+  color: blue;
+}
+
+div > span {
+
+}

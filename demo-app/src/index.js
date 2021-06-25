@@ -1,6 +1,7 @@
 // import React from 'react';
 import { render } from "react-dom";
 
+import { Layout } from './components/Layout';
 import { ColorToolStoreProvider } from './contexts/colorToolStoreContext';
 import { ColorToolContainer } from "./containers/ColorToolContainer";
 import { CarToolStoreProvider } from './contexts/carToolStoreContext';
@@ -32,14 +33,14 @@ const carList = [
 ];
 
 const elements = (
-  <>
+  <Layout>
     <ColorToolStoreProvider initialColors={colorList}>
       <ColorToolContainer />
     </ColorToolStoreProvider>
     <CarToolStoreProvider initialCars={carList}>
       <CarToolContainer />
     </CarToolStoreProvider>
-  </>
+  </Layout>
 );
 
 render(elements, document.querySelector("#root"));
