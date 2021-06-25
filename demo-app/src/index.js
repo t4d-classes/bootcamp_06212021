@@ -1,11 +1,8 @@
-// import React from 'react';
 import { render } from "react-dom";
 
-import { Layout } from './components/Layout';
 import { ColorToolStoreProvider } from './contexts/colorToolStoreContext';
-import { ColorToolContainer } from "./containers/ColorToolContainer";
 import { CarToolStoreProvider } from './contexts/carToolStoreContext';
-import { CarToolContainer } from "./containers/CarToolContainer";
+import { App } from './components/App';
 
 const colorList = [
   { id: 1, name: "green" },
@@ -32,15 +29,8 @@ const carList = [
   },
 ];
 
-const elements = (
-  <Layout>
-    <ColorToolStoreProvider initialColors={colorList}>
-      <ColorToolContainer />
-    </ColorToolStoreProvider>
-    <CarToolStoreProvider initialCars={carList}>
-      <CarToolContainer />
-    </CarToolStoreProvider>
-  </Layout>
-);
-
-render(elements, document.querySelector("#root"));
+render(<ColorToolStoreProvider initialColors={colorList}>
+  <CarToolStoreProvider initialCars={carList}>
+    <App />
+  </CarToolStoreProvider>
+</ColorToolStoreProvider>, document.querySelector("#root"));
