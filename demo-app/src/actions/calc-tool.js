@@ -19,4 +19,5 @@ export const createDivideAction = value => {
 
 export const createClearAction = value => ({ type: CLEAR_ACTION, value });
 
-export const createDeleteHistoryEntryAction = (entryId) => ({ type: DELETE_HISTORY_ENTRY_ACTION, entryId })
+export const createDeleteHistoryEntryAction = (entryId) =>
+  ({ type: DELETE_HISTORY_ENTRY_ACTION, entryId })
