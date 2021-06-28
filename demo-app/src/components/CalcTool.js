@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { useState } from 'react';
 
 export const CalcTool = ({
-  result, history,
+  result, history, errorMessage,
   onAdd: add, onSubtract: subtract,
   onMultiply: multiply, onDivide: divide,
+  onDeleteHistoryEntryAction: deleteHistoryEntryAction,
   onClear: clear }) => {
 
   const [numInput, setNumInput] = useState(0);
@@ -13,7 +14,9 @@ export const CalcTool = ({
     <div>
       <div>Result: {result}</div>
       <div>Num: <input type="text" value={numInput}
-        onChange={e => setNumInput(Number(e.target.value))} /></div>
+        onChange={e => setNumInput(Number(e.target.value))} />
+        {errorMessage && <span>{errorMessage}</span>}
+      </div>
 
       <div>
         <button type="button" onClick={() => add(numInput)}>+</button>
@@ -26,6 +29,7 @@ export const CalcTool = ({
       <ul>
         {history.map(entry => <li key={entry.opId}>
           {entry.opName} {entry.opValue}
+          <button type="button" onClick={() => deleteHistoryEntryAction(entry.opId)}>X</button>
         </li>)}
       </ul>
     </div>

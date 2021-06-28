@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { ADD_ACTION, SUBTRACT_ACTION, MULTIPLY_ACTION, DIVIDE_ACTION, CLEAR_ACTION } from '../actions/calc-tool';
+import {
+  ADD_ACTION, SUBTRACT_ACTION, MULTIPLY_ACTION,
+  DIVIDE_ACTION, CLEAR_ACTION, SET_ERROR_ACTION,
+  DELETE_HISTORY_ENTRY_ACTION,
+} from '../actions/calc-tool';
 
 export const resultReducer = (/* state */ result = 0, action) => {
 
@@ -25,10 +29,14 @@ export const historyReducer = (/* state */ history = [], action) => {
     return [
       ...history,
       {
-        opId: Math.max(...history.map(h => h.id), 0) + 1,
+        opId: Math.max(...history.map(h => h.opId), 0) + 1,
         opName: action.type, opValue: action.value,
       },
     ];
+  }
+
+  if (action.type === DELETE_HISTORY_ENTRY_ACTION) {
+    return history.filter(entry => entry.opId !== action.entryId);
   }
 
   if (action.type === CLEAR_ACTION) {
@@ -36,6 +44,15 @@ export const historyReducer = (/* state */ history = [], action) => {
   }
 
   return history;
+}
+
+export const errorMessageReducer = (_, action) => {
+
+  if (action.type === SET_ERROR_ACTION) {
+    return action.message;
+  }
+
+  return "";
 }
 
 // export const calcToolReducer = (state, action) => {
@@ -49,6 +66,7 @@ export const historyReducer = (/* state */ history = [], action) => {
 export const calcToolReducer = combineReducers({
   result: resultReducer,
   history: historyReducer,
+  errorMessage: errorMessageReducer,
 });
 
 // const combineReducers = (reducerMap) => {

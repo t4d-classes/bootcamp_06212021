@@ -6,7 +6,8 @@ import {
   createSubtractAction,
   createMultiplyAction,
   createDivideAction,
-  createClearAction
+  createClearAction,
+  createDeleteHistoryEntryAction,
 } from '../actions/calc-tool';
 
 import { CalcTool } from '../components/CalcTool';
@@ -17,6 +18,7 @@ export const CalcToolContainer = () => {
     return state.history;
   });
   const result = useSelector(state => state.result);
+  const errorMessage = useSelector(state => state.errorMessage);
 
   // actions = {
   //   onAdd: value => dispatch(createAddAction(value)),
@@ -28,8 +30,10 @@ export const CalcToolContainer = () => {
     onMultiply: createMultiplyAction,
     onDivide: createDivideAction,
     onClear: createClearAction,
+    onDeleteHistoryEntryAction: createDeleteHistoryEntryAction,
   }, useDispatch() /* returns the dispatch function from the store */);
 
-  return <CalcTool result={result} history={history} {...actions} />;
+  return <CalcTool result={result} history={history}
+    errorMessage={errorMessage} {...actions} />;
 
 };
