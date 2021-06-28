@@ -4,6 +4,6 @@
 
 2. Each history entry should display the operation performed, and the value typed in the input box when the operation performed.
 
-3. When the clean button is clicked, clear the history as well.
+3. When the clear button is clicked, clear the history as well.
 
 4. Ensure it works!

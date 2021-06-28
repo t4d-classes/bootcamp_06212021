@@ -4,12 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   createAddAction,
   createSubtractAction,
+  createMultiplyAction,
+  createDivideAction,
+  createClearAction
 } from '../actions/calc-tool';
 
 import { CalcTool } from '../components/CalcTool';
 
 export const CalcToolContainer = () => {
 
+  const history = useSelector(state => {
+    return state.history;
+  });
   const result = useSelector(state => state.result);
 
   // actions = {
@@ -19,8 +25,11 @@ export const CalcToolContainer = () => {
   const actions = bindActionCreators({
     onAdd: createAddAction,
     onSubtract: createSubtractAction,
-  }, useDispatch());
+    onMultiply: createMultiplyAction,
+    onDivide: createDivideAction,
+    onClear: createClearAction,
+  }, useDispatch() /* returns the dispatch function from the store */);
 
-  return <CalcTool result={result} {...actions} />;
+  return <CalcTool result={result} history={history} {...actions} />;
 
 };
