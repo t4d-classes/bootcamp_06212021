@@ -1,4 +1,9 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import { colorToolStore } from '../stores/colorToolStore';
+import { carToolStore } from '../stores/carToolStore';
+import { calcToolStore } from '../stores/calcToolStore';
 
 import { Layout } from './Layout';
 import { ToolHeader } from './ToolHeader';
@@ -10,6 +15,7 @@ import { Sidebar } from './Sidebar';
 import { ColorListContainer } from '../containers/ColorListContainer';
 import { ColorFormContainer } from '../containers/ColorFormContainer';
 import { CarToolContainer } from '../containers/CarToolContainer';
+import { CalcToolContainer } from '../containers/CalcToolContainer';
 
 export const App = () => {
   return (
@@ -20,13 +26,24 @@ export const App = () => {
         <main>
           <Switch>
             <Route path="/color-list">
-              <ColorListContainer />
+              <Provider store={colorToolStore}>
+                <ColorListContainer />
+              </Provider>
             </Route>
             <Route path="/color-form">
-              <ColorFormContainer />
+              <Provider store={colorToolStore}>
+                <ColorFormContainer />
+              </Provider>
             </Route>
             <Route path="/car-tool">
-              <CarToolContainer />
+              <Provider store={carToolStore}>
+                <CarToolContainer />
+              </Provider>
+            </Route>
+            <Route path="/calc-tool">
+              <Provider store={calcToolStore}>
+                <CalcToolContainer />
+              </Provider>
             </Route>
             <Route path="/" exact>
               <Home />

@@ -17,6 +17,9 @@ export const Menu = () => {
         <li className="menu-item">
           <Link to="/car-tool">Car Tool</Link>
         </li>
+        <li className="menu-item">
+          <Link to="/calc-tool">Calc Tool</Link>
+        </li>
       </ul>
     </nav>
   );

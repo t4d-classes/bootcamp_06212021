@@ -1,16 +1,12 @@
 import PropTypes from "prop-types";
 import { useState } from 'react';
 
-import { useCalcToolStore } from '../hooks/useCalcToolStore';
-
 export const CalcTool = ({
   result, history, errorMessage,
   onAdd: add, onSubtract: subtract,
   onMultiply: multiply, onDivide: divide,
   onDeleteHistoryEntryAction: deleteHistoryEntryAction,
   onClear: clear }) => {
-
-    useCalcToolStore()
 
   const [numInput, setNumInput] = useState(0);
 

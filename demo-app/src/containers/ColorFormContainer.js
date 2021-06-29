@@ -1,16 +1,21 @@
-import { useColorToolStoreContext } from '../contexts/colorToolStoreContext';
+import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
+
+import { createAddColorAction } from '../actions/color-tool';
 
 import { ToolHeader } from '../components/ToolHeader';
 import { ColorForm } from "../components/ColorForm";
 
 export const ColorFormContainer = () => {
 
-  const { appendColor } = useColorToolStoreContext();
+  const action = bindActionCreators({
+    onSubmitForm: createAddColorAction,
+  }, useDispatch());
 
   return (
     <>
       <ToolHeader headerText="Color Form" />
-      <ColorForm buttonText="Add Color" onSubmitForm={appendColor} />
+      <ColorForm buttonText="Add Color" {...action} />
     </>
   );
 };
