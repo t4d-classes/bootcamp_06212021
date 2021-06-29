@@ -80,73 +80,418 @@
 
       "use strict";
 
-      // class Person {
+      // // class Person {
 
-      //   constructor(firstName, lastName) {
-      //     this.firstName = firstName;
-      //     this.lastName = lastName;
-      //   }
+      // //   constructor(firstName, lastName) {
+      // //     this.firstName = firstName;
+      // //     this.lastName = lastName;
+      // //   }
 
-      //   getFullName() {
-      //     return this.firstName + " " + this.lastName;
-      //   }
+      // //   getFullName() {
+      // //     return this.firstName + " " + this.lastName;
+      // //   }
 
+      // // }
+
+      // // function Person2(firstName, lastName) {
+      // //   this.firstName = firstName;
+      // //   this.lastName = lastName;
+      // // }
+
+      // // Person2.prototype.getFullName = function() {
+      // //   return this.firstName + " " + this.lastName;
+      // // }
+
+      // // const a = new Person("Bob", "Smith");
+      // // console.log(a.getFullName());
+
+      // // const b = new Person2("Sally", "Jones");
+      // // console.log(b.getFullName());
+
+      // // console.dir(Person);
+      // // console.dir(Person2);
+      // // console.dir(a);
+      // // console.dir(b);
+
+
+      // // for keyword-style functions it's about how the function is called
+      // function doIt() {
+      //   console.log(this);
+
+      //   // const that = this;
+
+      //   // function inner() {
+      //   //   console.log(that);
+      //   // }
+
+      //   // arrow function use lexical this
+      //   // it's about where the function is defined
+      //   const inner = () => {
+      //     console.log(this);
+      //   };
+
+      //   inner();
       // }
 
-      // function Person2(firstName, lastName) {
-      //   this.firstName = firstName;
-      //   this.lastName = lastName;
-      // }
+      // // doIt();
+      // // window.doIt();
 
-      // Person2.prototype.getFullName = function() {
-      //   return this.firstName + " " + this.lastName;
-      // }
+      // const o = {
+      //   id: 2, 
+      //   doIt: doIt,
+      // };
 
-      // const a = new Person("Bob", "Smith");
-      // console.log(a.getFullName());
+      // o.doIt();
 
-      // const b = new Person2("Sally", "Jones");
-      // console.log(b.getFullName());
+      // // console.log(o.doIt === window.doIt);
 
-      // console.dir(Person);
-      // console.dir(Person2);
-      // console.dir(a);
-      // console.dir(b);
+    </script>
+    <!-- <script>
 
+      function outer() {
 
-      // for keyword-style functions it's about how the function is called
-      function doIt() {
-        console.log(this);
+        let t = 2;
 
-        // const that = this;
+        setTimeout(function increaseT24() {
+          t = 4;
+        }, 2000);
 
-        // function inner() {
-        //   console.log(that);
-        // }
-
-        // arrow function use lexical this
-        // it's about where the function is defined
-        const inner = () => {
-          console.log(this);
+        return function inner() {
+          console.log(t);
         };
-
-        inner();
       }
 
-      // doIt();
-      // window.doIt();
+      const innerFn = outer();
 
-      const o = {
-        id: 2, 
-        doIt: doIt,
-      };
+      innerFn();
 
-      o.doIt();
+      setTimeout(function callInnerAgain() {
+        innerFn();
+      }, 4000);
 
-      // console.log(o.doIt === window.doIt);
+      // console.dir(innerFn);
+
+
+    </script> -->
+    <!-- <script>
+
+      // setTimeout(() => {
+      //   console.log('made it here...');
+      // }, 0);
+
+      // console.log('this is cool...')
+
+      const delay = () => Math.random() * 100 + 1000;
+
+      // sequence
+
+      // setTimeout(() => {
+      //   console.log("a");
+
+      //   setTimeout(() => {
+      //     console.log("b");
+
+      //     setTimeout(() => {
+      //       console.log("c");
+      //     }, delay());
+
+      //   }, delay());
+
+      // }, delay());
+
+      const taskA = () => new Promise(resolve => {
+        setTimeout(() => {
+          resolve("a");
+        }, delay())
+      });
+
+      const taskB = () => new Promise(resolve => {
+        setTimeout(() => {
+          resolve("b");
+        }, delay())
+      });
+
+      const taskC = () => new Promise(resolve => {
+        setTimeout(() => {
+          resolve("c");
+        }, delay())
+      });
+
+      taskA()
+        .then((r) => {
+          console.log(r);
+          return taskB();
+        })
+        .then((r) => {
+          console.log(r);
+          return taskC();
+        })
+        .then(r => {
+          console.log(r);
+        });
+
+
+      function allDone() {
+        console.log("all done");
+      }
+
+      Promise.all([ taskA(), taskB(), taskC() ]).then(results => {
+        console.log(results);
+        allDone();
+      }).catch(resultThatFailed => {
+
+      });
+
+      Promise.allSettled([ taskA(), taskB(), taskC() ]).then(results => {
+        console.log(results);
+        allDone();
+      });
+
+      // let count = 0;
+
+      // count++;
+      // setTimeout(() => {
+      //   console.log("a");
+      //   count--;
+      //   if (count === 0) {
+      //     allDone();
+      //   }
+      // }, delay());
+
+      // count++;
+      // setTimeout(() => {
+      //   console.log("b");
+      //   count--;
+      //   if (count === 0) {
+      //     allDone();
+      //   }
+      // }, delay());
+
+      // count++;
+      // setTimeout(() => {
+      //   console.log("c");
+      //   count--;
+      //   if (count === 0) {
+      //     allDone();
+      //   }
+      // }, delay());
+
+
+
+    </script> -->
+    <!-- <script>
+
+      class Promise {
+
+        constructor(fn) {
+
+          this.resolveFns = [];
+          this.rejectFns = [];
+
+          const resolveFn = data => {
+            this.resolveFns.forEach(fn => fn(data));
+          };
+
+          const rejectFn = data => {
+            this.rejectFns.forEach(fn => fn(data));
+          };
+
+          fn(resolveFn, rejectFn);
+        }
+
+        then(fn) {
+          this.resolveFns.push(fn);
+        }
+
+        catch(fn) {
+          this.rejectFns.push(fn);
+        }
+      }
+
+      const p = new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+          resolve("a");
+        }, 2000);
+
+      });
+
+      p.then(result => {
+        console.log(result);
+      }).catch(result => {
+        console.log(result)
+      });
+
+      console.log("made it here...");
+
+    </script> -->
+
+    <script>
+
+      const delay = () => Math.random() * 100 + 1000;      
+
+      const taskA = () => new Promise(resolve => {
+        setTimeout(() => {
+          resolve("a");
+        }, delay())
+      });
+
+      const taskB = () => new Promise(resolve => {
+        setTimeout(() => {
+          resolve("b");
+        }, delay())
+      });
+
+      const taskC = () => new Promise(resolve => {
+        setTimeout(() => {
+          resolve("c");
+        }, delay())
+      });
+
+      // taskA()
+      //   .then((r) => {
+      //     console.log(r);
+      //     return taskB();
+      //   })
+      //   .then((r) => {
+      //     console.log(r);
+      //     return taskC();
+      //   })
+      //   .then(r => {
+      //     console.log(r);
+      //   });
+
+      // const doTasks = async () => {
+
+      //   try {
+
+      //     let r = await taskA();
+      //     console.log(r);
+
+      //     r = await taskB();
+      //     console.log(r);
+
+      //     r = await taskC();
+      //     console.log(r);
+
+      //   } catch {
+      //     console.log("the world ended...")
+      //   }
+
+      // };
+
+      // doTasks();
+
+      // function* nums() {
+      //   console.log("inside nums");
+      //   yield 1;
+
+      //   console.log("inside nums");
+      //   yield 2;
+
+      //   console.log("inside nums");
+      //   yield 3;
+      // }
+
+      // const numsGen = nums();
+
+      // for (let num of numsGen) {
+      //   console.log("in the loop");
+      //   console.log(num);
+      // }
+
+      // console.log(numsGen.next())
+      // console.log(numsGen.next())
+      // console.log(numsGen.next())
+      // console.log(numsGen.next())
 
 
 
     </script>
+    <!-- <script>
+
+      // const xhr = new XMLHttpRequest();
+
+      // xhr.addEventListener("readystatechange", () => {
+      //   if (xhr.status === 200 && xhr.readyState === 4) {
+      //     console.log(JSON.parse(xhr.responseText));
+      //   }
+      // });
+
+      // xhr.open("GET", "http://localhost:3060/cars");
+      // xhr.send();
+
+      // fetch("http://localhost:3060/cars")
+      //   .then(res => res.json())
+      //   .then(cars => console.log(cars));
+
+      const getAllCars = async () => {
+        // Collection URL
+        const res = await fetch("http://localhost:3060/cars");
+        const cars = await res.json();
+        return cars;
+      };
+
+      // const getAllCars = async () => {
+      //   const res = await fetch("http://localhost:3060/cars", {
+      //     method: 'GET' // GET is the default verb
+      //   });
+      //   const cars = await res.json();
+      //   return cars;
+      // };
+      
+      const getOneCar = async (carId) => {
+        // Member/Element URL
+        const res = await fetch("http://localhost:3060/cars/" + encodeURIComponent(carId));
+        const car = await res.json();
+        return car;
+      };
+
+
+      // getAllCars().then(cars => console.log(cars));
+      getOneCar(1).then(car => console.log(car));
+
+      const appendCar = async (car) => {
+        // Collection URL
+        const res = await fetch("http://localhost:3060/cars", {
+          method: 'POST', // append a resource to the list
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(car)
+        });
+        const carThatWasAdded = await res.json();
+        return carThatWasAdded;
+      };
+
+      // the REST API will calculate the ID
+      // appendCar({
+      //   make: 'Nissan',
+      //   model: 'Pathfinder',
+      //   year: 2016,
+      //   color: 'darknavy',
+      //   price: 40000,
+      // }).then(car => {
+      //   console.log(car);
+      // });
+
+      const replaceCar = async (car) => {
+        // Member/Element URL
+        const res = await fetch("http://localhost:3060/cars/" + encodeURIComponent(car.id), {
+          method: 'PUT', // replace a resource to the list
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(car)
+        });
+        const carThatWasUpdated = await res.json();
+        return carThatWasUpdated;
+      };
+
+      const deleteCar = async (carId) => {
+        // Member/Element URL
+        await fetch("http://localhost:3060/cars/" + encodeURIComponent(carId), {
+          method: 'DELETE', // delete a resource from the list
+        });
+      };
+
+    </script> -->
+
   </body>
 </html>
