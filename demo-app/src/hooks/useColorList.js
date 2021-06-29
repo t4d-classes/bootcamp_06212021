@@ -1,15 +1,24 @@
+import { useEffect, useMemo } from 'react';
+
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { createDeleteColorAction  } from '../actions/color-tool';
+import { refreshColors, createDeleteColorAction } from '../actions/color-tool';
 
 export const useColorList = () => {
 
   const colors = useSelector(state => state.colors);
 
-  const actions = bindActionCreators({
+  const dispatch = useDispatch();
+
+  const actions = useMemo(() => bindActionCreators({
+    refreshColors: refreshColors,
     deleteColor: createDeleteColorAction,
-  }, useDispatch());
+  }, dispatch), [dispatch]);
+
+  useEffect(() => {
+    actions.refreshColors();
+  }, [actions])
 
   return {
     colors,
