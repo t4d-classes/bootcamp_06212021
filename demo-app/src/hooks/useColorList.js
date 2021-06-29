@@ -12,11 +12,9 @@ export const useColorList = () => {
   const dispatch = useDispatch();
 
   const actions = useMemo(() => bindActionCreators({
-    refreshColors: refreshColors,
-    deleteColor: deleteColor,
+    refreshColors: refreshColors, // () => dispatch(refreshColors())
+    deleteColor: deleteColor, // colorId => dispatch(deleteColor(colorId))
   }, dispatch), [dispatch]);
-
-  // refreshColors = () => dispatch(refreshColors())
 
   useEffect(() => {
     actions.refreshColors();

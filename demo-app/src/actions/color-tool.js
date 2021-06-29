@@ -6,15 +6,20 @@ export const ADD_COLOR_ACTION = 'ADD_COLOR';
 export const DELETE_COLOR_REQUEST_ACTION = 'DELETE_COLOR_REQUEST';
 export const DELETE_COLOR_DONE_ACTION = 'DELETE_COLOR_DONE';
 
-
+// action creator
 export const createRefreshColorsRequestAction = () =>
   ({ type: REFRESH_COLORS_REQUEST_ACTION });
 
+// action create
 export const createRefreshColorsDoneAction = (colors) =>
   ({ type: REFRESH_COLORS_DONE_ACTION, colors });
 
+// event handler
+// thunk creator
 export const refreshColors = () => {
 
+  // thunk - function executed in the future
+  // async orchestrator
   return (dispatch) => {
 
     dispatch(createRefreshColorsRequestAction());
