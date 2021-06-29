@@ -2,7 +2,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 
 import { calcToolStore } from './stores/calcToolStore';
-import { CalcToolContainer } from './containers/CalcToolContainer';
+import { CalcToolContainer } from './containers/CalcToolContainerHooks';
 
 
 render(<Provider store={calcToolStore}>
