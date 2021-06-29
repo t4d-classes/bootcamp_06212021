@@ -2,7 +2,9 @@ export const REFRESH_COLORS_REQUEST_ACTION = 'REFRESH_COLORS_REQUEST';
 export const REFRESH_COLORS_DONE_ACTION = 'REFRESH_COLORS_DONE';
 
 export const ADD_COLOR_ACTION = 'ADD_COLOR';
-export const DELETE_COLOR_ACTION = 'DELETE_COLOR';
+
+export const DELETE_COLOR_REQUEST_ACTION = 'DELETE_COLOR_REQUEST';
+export const DELETE_COLOR_DONE_ACTION = 'DELETE_COLOR_DONE';
 
 
 export const createRefreshColorsRequestAction = () =>
@@ -30,7 +32,24 @@ export const createAddColorAction = color => ({
   color,
 });
 
-export const createDeleteColorAction = colorId => ({
-  type: DELETE_COLOR_ACTION,
-  colorId,
-});
+export const createDeleteColorRequestAction = () =>
+  ({ type: DELETE_COLOR_REQUEST_ACTION });
+
+export const createDeleteColorDoneAction = () =>
+  ({ type: DELETE_COLOR_DONE_ACTION });
+
+
+export const deleteColor = colorId => {
+
+  return dispatch => {
+
+    dispatch(createDeleteColorRequestAction());
+
+    return fetch("http://localhost:3060/colors/" + encodeURIComponent(colorId), {
+      method: "DELETE",
+    })
+      //.then(() => dispatch(createDeleteColorDoneAction()));
+      .then(() => dispatch(refreshColors()));
+
+  };
+}
