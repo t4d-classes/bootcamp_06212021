@@ -15,7 +15,7 @@ import { Sidebar } from './Sidebar';
 import { ColorListContainer } from '../containers/ColorListContainer';
 import { ColorFormContainer } from '../containers/ColorFormContainer';
 import { CarToolContainer } from '../containers/CarToolContainer';
-import { CalcToolContainer } from '../containers/CalcToolContainer';
+import { CalcToolContainer } from '../containers/CalcToolContainerHooks';
 
 export const App = () => {
   return (

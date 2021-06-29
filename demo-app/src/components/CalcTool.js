@@ -6,9 +6,14 @@ export const CalcTool = ({
   onAdd: add, onSubtract: subtract,
   onMultiply: multiply, onDivide: divide,
   onDeleteHistoryEntryAction: deleteHistoryEntryAction,
-  onClear: clear }) => {
+  onClear }) => {
 
   const [numInput, setNumInput] = useState(0);
+
+  const clear = () => {
+    setNumInput(0);
+    onClear();
+  };
 
   return (
     <div>
