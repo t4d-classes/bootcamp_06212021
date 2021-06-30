@@ -9,6 +9,11 @@
       "id": 2,
       "name": "green",
       "hexcode": "#00ff00"
+    },
+    {
+      "name": "blue",
+      "hexcode": "0000FF",
+      "id": 3
     }
   ],
   "cars": [

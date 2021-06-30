@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 
-import { createAddColorAction } from '../actions/color-tool';
+import { addColor } from '../actions/color-tool';
 
 import { ToolHeader } from '../components/ToolHeader';
 import { ColorForm } from "../components/ColorForm";
@@ -9,7 +9,7 @@ import { ColorForm } from "../components/ColorForm";
 export const ColorFormContainer = () => {
 
   const action = bindActionCreators({
-    onSubmitForm: createAddColorAction,
+    onSubmitForm: addColor,
   }, useDispatch());
 
   return (

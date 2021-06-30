@@ -1,8 +1,7 @@
 export const REFRESH_COLORS_REQUEST_ACTION = 'REFRESH_COLORS_REQUEST';
 export const REFRESH_COLORS_DONE_ACTION = 'REFRESH_COLORS_DONE';
-
-export const ADD_COLOR_ACTION = 'ADD_COLOR';
-
+export const ADD_COLOR_REQUEST_ACTION = 'ADD_COLOR_REQUEST';
+export const ADD_COLOR_DONE_ACTION = 'ADD_COLOR_DONE';
 export const DELETE_COLOR_REQUEST_ACTION = 'DELETE_COLOR_REQUEST';
 export const DELETE_COLOR_DONE_ACTION = 'DELETE_COLOR_DONE';
 
@@ -28,21 +27,34 @@ export const refreshColors = () => {
       .then(res => res.json())
       .then(colors => dispatch(createRefreshColorsDoneAction(colors)));
   };
-
 };
 
+export const createAddColorRequestAction = () =>
+  ({ type: ADD_COLOR_REQUEST_ACTION });
 
-export const createAddColorAction = color => ({
-  type: ADD_COLOR_ACTION,
-  color,
-});
+export const createAddColorDoneAction = () =>
+  ({ type: ADD_COLOR_DONE_ACTION });
+
+export const addColor = color => {
+
+  return dispatch => {
+
+    dispatch(createAddColorRequestAction());
+
+    return fetch("http://localhost:3060/colors", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(color),
+    })
+      .then(() => dispatch(refreshColors()));
+  };
+}
 
 export const createDeleteColorRequestAction = () =>
   ({ type: DELETE_COLOR_REQUEST_ACTION });
 
 export const createDeleteColorDoneAction = () =>
   ({ type: DELETE_COLOR_DONE_ACTION });
-
 
 export const deleteColor = colorId => {
 
@@ -53,7 +65,6 @@ export const deleteColor = colorId => {
     return fetch("http://localhost:3060/colors/" + encodeURIComponent(colorId), {
       method: "DELETE",
     })
-      //.then(() => dispatch(createDeleteColorDoneAction()));
       .then(() => dispatch(refreshColors()));
 
   };

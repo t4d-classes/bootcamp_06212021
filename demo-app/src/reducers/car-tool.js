@@ -1,52 +1,18 @@
 import { combineReducers } from 'redux';
 
 import {
-  ADD_CAR_ACTION, SAVE_CAR_ACTION, DELETE_CAR_ACTION,
+  REFRESH_CARS_DONE_ACTION,
   EDIT_CAR_ACTION, CANCEL_CAR_ACTION
 } from '../actions/car-tool';
 
-const carList = [
-  {
-    id: 1,
-    make: "Ford",
-    model: "Fusion Hybrid",
-    year: 2021,
-    color: "blue",
-    price: 45000,
-  },
-  {
-    id: 2,
-    make: "Tesla",
-    model: "S",
-    year: 2019,
-    color: "white",
-    price: 120000,
-  },
-];
-
-export const carsReducer = (cars = carList, action) => {
+export const carsReducer = (cars = [], action) => {
 
   switch (action.type) {
-    case ADD_CAR_ACTION:
-      return [
-        ...cars,
-        {
-          ...action.car,
-          id: Math.max(...cars.map(c => c.id), 0) + 1,
-        },
-      ]
-    case SAVE_CAR_ACTION:
-      const newCars = [...cars];
-      const carIndex = newCars.findIndex(c => c.id === action.car.id);
-      newCars[carIndex] = action.car;
-      return newCars;
-    case DELETE_CAR_ACTION:
-      return cars.filter(c => c.id !== action.carId);
+    case REFRESH_CARS_DONE_ACTION:
+      return action.cars;
     default:
       return cars;
   }
-
-
 };
 
 export const editCarIdReducer = (editCarId = -1, action) => {
@@ -56,8 +22,7 @@ export const editCarIdReducer = (editCarId = -1, action) => {
   }
 
   if ([
-    ADD_CAR_ACTION, SAVE_CAR_ACTION,
-    DELETE_CAR_ACTION, CANCEL_CAR_ACTION
+    REFRESH_CARS_DONE_ACTION, CANCEL_CAR_ACTION
   ].includes(action.type)) {
     return -1;
   }
@@ -65,7 +30,21 @@ export const editCarIdReducer = (editCarId = -1, action) => {
   return editCarId; 
 };
 
+const isLoadingReducer = (isLoading = false, action) => {
+
+  if (action.type.includes("REQUEST")) {
+    return true;
+  }
+
+  if (action.type.includes("DONE")) {
+    return false;
+  }
+
+  return isLoading;
+};
+
 export const carToolReducer = combineReducers({
   cars: carsReducer,
   editCarId: editCarIdReducer,
+  isLoading: isLoadingReducer,
 });

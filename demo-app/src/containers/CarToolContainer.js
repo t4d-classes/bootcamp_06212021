@@ -1,10 +1,10 @@
+import { useMemo, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  createAddCarAction, createSaveCarAction,
-  createDeleteCarAction, createEditCarAction,
-  createCancelCarAction
+  refreshCars, addCar, saveCar, deleteCar,
+  createEditCarAction, createCancelCarAction
 } from '../actions/car-tool';
 
 import { ToolHeader } from "../components/ToolHeader";
@@ -16,16 +16,22 @@ export const CarToolContainer = () => {
   const cars = useSelector(state => state.cars);
   const editCarId = useSelector(state => state.editCarId);
 
-  const carTableActions = bindActionCreators({
-    onSaveCar: createSaveCarAction,
-    onDeleteCar: createDeleteCarAction,
+  const dispatch = useDispatch();
+
+  const carTableActions = useMemo(() => bindActionCreators({
+    onSaveCar: saveCar,
+    onDeleteCar: deleteCar,
     onEditCar: createEditCarAction,
     onCancelCar: createCancelCarAction
-  }, useDispatch());
+  }, dispatch), [dispatch]);
 
-  const carFormActions = bindActionCreators({
-    onSubmitCar: createAddCarAction,
-  }, useDispatch());
+  const carFormActions = useMemo(() => bindActionCreators({
+    onSubmitCar: addCar,
+  }, dispatch), [dispatch]);
+
+  useEffect(() => {
+    dispatch(refreshCars());
+  }, [dispatch])
 
   return (
     <>
