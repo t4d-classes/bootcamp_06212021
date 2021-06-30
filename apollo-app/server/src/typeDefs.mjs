@@ -5,9 +5,7 @@ export const typeDefs = gql`
     message: String
     authors: [Author]
     author(id: ID): Author
-    num1: Int
-    num2: Float
-    test: Boolean
+    books: [Book]
   }
 
   type Author {
@@ -16,5 +14,17 @@ export const typeDefs = gql`
     lastName: String
     fullName: String
     phoneNumber: String
+    books: [Book]
+  }
+
+  type Book {
+    id: ID
+    isbn: String
+    title: String
+    authorId: ID
+    category: String
+    price: Float
+    quantity: Int
+    author: Author
   }
 `;

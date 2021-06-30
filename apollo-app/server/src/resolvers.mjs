@@ -17,15 +17,10 @@ export const resolvers = {
             return fetch('http://localhost:5050/authors/'
                 + encodeURIComponent(args.id)).then(res => res.json());
         },
-        num1() {
-            return 1;
+        books() {
+            return fetch('http://localhost:5050/books')
+                .then(res => res.json());
         },
-        num2() {
-            return 10.1;
-        },
-        test() {
-            return false;
-        }
     },
     Author: {
         // id: (author) => {
@@ -33,6 +28,18 @@ export const resolvers = {
         // }
         fullName: (author) => {
             return author.firstName + " " + author.lastName;
+        },
+        books: (author) => {
+            return fetch('http://localhost:5050/books?authorId='
+                + encodeURIComponent(author.id))
+                .then(res => res.json());
+        }
+    },
+    Book: {
+        author: (book) => {
+            return fetch('http://localhost:5050/authors/'
+                + encodeURIComponent(book.authorId))
+                .then(res => res.json());
         }
     }
 };
