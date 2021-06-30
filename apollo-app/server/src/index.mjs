@@ -1,6 +1,9 @@
 import http from 'http';
 import dotenv from 'dotenv';
 
+// Common JS
+// const http = require('http');
+
 dotenv.config();
 
 import { logger } from './logger.mjs';

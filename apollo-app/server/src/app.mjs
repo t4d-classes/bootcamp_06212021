@@ -9,8 +9,10 @@ const proxy = httpProxy.createProxyServer({});
 
 export const app = express();
 
+// middleware for the GraphQL
 apollo.applyMiddleware({ app, path: '/graphql' });
 
+// middleware for the reverse proxy for the React
 app.use('/', function app(req, res) {
   proxy.web(
     req,
