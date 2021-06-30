@@ -83,6 +83,12 @@
       "lastName": "Vance",
       "phoneNumber": "123-123-1234",
       "id": 14
+    },
+    {
+      "firstName": "Jacob",
+      "lastName": "Elias",
+      "phoneNumber": "123-123-1234",
+      "id": 15
     }
   ],
   "books": [
@@ -94,15 +100,6 @@
       "category": "Inspirational",
       "price": 12.99,
       "quantity": 4
-    },
-    {
-      "id": 2,
-      "isbn": "111222AAAB",
-      "title": "Good Fellows",
-      "authorId": 2,
-      "category": "Inspirational",
-      "price": 4.99,
-      "quantity": 34
     },
     {
       "id": 3,
@@ -148,6 +145,15 @@
       "category": "Historical",
       "price": 15.99,
       "quantity": 55
+    },
+    {
+      "isbn": "111222AAAB",
+      "title": "Silicon Valley Pioneers",
+      "authorId": "2",
+      "category": "History",
+      "price": 150,
+      "quantity": 34,
+      "id": 8
     }
   ]
 }

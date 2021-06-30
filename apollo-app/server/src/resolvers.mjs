@@ -30,6 +30,34 @@ export const resolvers = {
                 body: JSON.stringify(args.author),
             }).then(res => res.json());
         },
+        appendBook(_, args) {
+            return fetch('http://localhost:5050/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(args.book),
+            }).then(res => res.json());
+        },
+        // removeBook(_, args) {
+        //     return fetch('http://localhost:5050/books/'
+        //         + encodeURIComponent(args.bookId))
+        //         .then(res => res.json())
+        //         .then(book => {
+        //             return fetch('http://localhost:5050/books/'
+        //                 + encodeURIComponent(args.bookId), { method: 'DELETE' })
+        //                 .then(() => book);
+        //         });
+        // }
+        async removeBook(_, args) {
+            const res = await fetch('http://localhost:5050/books/'
+                + encodeURIComponent(args.bookId));
+
+            const book = await res.json();
+
+            await fetch('http://localhost:5050/books/'
+                + encodeURIComponent(args.bookId), { method: 'DELETE' });
+
+            return book;
+        }
     },
     Author: {
         // id: (author) => {
