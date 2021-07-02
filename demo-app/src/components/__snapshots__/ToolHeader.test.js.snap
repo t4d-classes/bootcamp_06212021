@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot ToolHeader component 1`] = `
+<header
+  className="header-block"
+>
+  <h1
+    className="page-header"
+  >
+    The Tool
+  </h1>
+</header>
+`;

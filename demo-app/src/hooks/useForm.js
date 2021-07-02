@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export const useForm = (initialForm) => {
-
-  const [ form, setForm ] = useState({...initialForm });
+export function useForm(initialForm) {
+  const [form, setForm] = useState({ ...initialForm });
 
   const change = e => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.type === 'number'
+          ? parseFloat(e.target.value)
+          : e.target.value,
     });
   };
-  
+
   const resetForm = () => setForm({ ...initialForm });
 
-  return [ form, change, resetForm ];
-};
+  return [form, change, resetForm];
+}
