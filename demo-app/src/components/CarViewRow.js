@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const CarViewRow = ({ car, onEditCar: editCar, onDeleteCar }) => {
 
   const deleteCar = () => onDeleteCar(car.id);
@@ -20,5 +22,18 @@ export const CarViewRow = ({ car, onEditCar: editCar, onDeleteCar }) => {
       </td>
     </tr>
   );
+};
+
+CarViewRow.propTypes = {
+  car: PropTypes.shape({
+    id: PropTypes.number,
+    make: PropTypes.string,
+    model: PropTypes.string,
+    year: PropTypes.number,
+    color: PropTypes.string,
+    price: PropTypes.number,
+  }),
+  onEditCar: PropTypes.func,
+  onDeleteCar: PropTypes.func,
 };
 
